@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+ServerSide/node_modules/
+=======
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+>>>>>>> 29394bf (Base Sever and Frontend App provided with http clients,authentication ,redux and  context api)

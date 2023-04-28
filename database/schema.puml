@@ -1,0 +1,113 @@
+class NonMembers{
+  + user_id:Integer(Primary key)
+  + username:String
+  + first_name:String
+  + last_name:String
+  + email:String
+  + password:String
+  + registerDate:Date
+  + gender:char
+  + branch_id:Integer
+  + university:String
+  + profile_img:String
+  + year:String
+}
+class Member{
+  + member_id:Integer(Primary key)
+  + username:String
+  + first_name:String
+  + last_name:String
+  + email:String
+  + password:String
+  + register_date:Date
+  + profile_img:String
+  + gender:char
+  + branch_id:Integer
+  + university:String
+  + year:String
+  + role:String(member or head)
+  + department_id:integer(Foreign key)
+}
+class Branch{
+  + branch_id:Integer
+  + branch_name:String
+}
+
+class Department{
+  + department_id: Integer
+  + department_name:String
+  + department_head:Integer(Foreing Key)
+}
+
+class Event{
+  + event_id: Integer
+  + title: String
+  + description:String
+  + tags:string
+  + event_date:date
+  + location:string
+  + event_admin_monitor:Integer(Foreign Key)
+  + event_member_responsible:Integer(Foreign key)
+}
+
+class Message{
+  + message_id:String
+  + message_content:String
+  + message_date:Date
+  + member_id:Integer(Foreign Key)
+  + admin_id:Integer(Foreign Key)
+
+}
+
+class Tutor{
+  + tutor_id:String
+  + first_name:String
+  + last_name:String
+  + title:String
+  + description:String
+  + profile_img:String
+
+}
+
+/'for office members'/
+class Admins{
+  + admin_id:Integer(Primary key)
+  + username:String
+  + first_name:String
+  + last_name:String
+  + email:String
+  + password:String
+  + registerDate:Date
+  + gender:char
+  + branch_id:Integer
+  + university:String
+  + year: string
+  + profile_img:String
+  + role :String(president|head or anyother)
+}
+
+class Event_Image{
+  + event_id:Integer
+  + image_url:String
+}
+
+Tutor }|--o{ Event :Participate
+
+Member ||--|{Department :Belongs_to
+
+
+
+Message ||--o{Member
+Message ||--o{Admins
+
+
+NonMembers ||--o{Branch
+Member ||--o{Branch
+Admins ||--o|Branch
+
+
+NonMembers }o--|{Event :Participate in
+Member }o--|{Event :Participate in
+Admins }o--|{Event :Participate in
+
+Event_Image}o--o{Event

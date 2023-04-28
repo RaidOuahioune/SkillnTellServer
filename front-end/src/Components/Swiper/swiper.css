@@ -1,0 +1,52 @@
+/*
+.swiper-button-next {
+  background-image: url("../../assets/arrow.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  right: -6px;
+  
+}
+*/
+.swiper-button-next::after {
+  display: none;
+}
+/*
+.swiper-button-prev {
+  background-image: url("../../assets/parrow.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  left: -6px;
+
+
+}
+*/
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FF9100 !important;
+}
+.swiper-pagination-bullet{
+  background-color:#FF9100 !important;
+}
+
+p{
+  margin-top: 10px;
+  font-size: 15px;
+
+}
+.image-container {
+  width:800px;
+  
+}
+
+.swiper-slide{
+  margin-top: 3px;
+  margin-right: 4px;
+}
+.slider{
+  margin: 10px;
+}

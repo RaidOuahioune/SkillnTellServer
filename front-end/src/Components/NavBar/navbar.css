@@ -1,0 +1,73 @@
+
+.logo img {
+  width: 140px;
+  height: 140px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0px;
+  display: flex;
+}
+
+.link {
+  display: inline;
+  padding: 30px;
+  font-size: 17px;
+  color: #240046;
+  text-decoration: none;
+  transition: .2s ease-in-out;
+}
+
+.link:hover{
+  font-size: 20px;
+  transition: .2s ease-in-out;
+  color: #FF9100;
+}
+
+
+
+
+
+.link:active {
+  text-decoration: none;
+  color: #000000;
+}
+
+nav button {
+  background-color: rgba(0, 0, 0, 0);
+  color: #240046;
+  padding: 11px 15px;
+  border: 2px #240046 solid;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.25));
+  transition: .2s ease-in-out;
+}
+
+nav button:hover {
+  background-color: #240046;
+  color: #ffffff;
+  transition: .1s ease-in-out;
+}
+
+nav {
+  font-family: 'Jost', sans-serif;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 20px;
+}
+
+
+.ensiaLogo{
+  background-color: #240046;
+  width: 100px;
+  display: flex;
+
+  justify-content: center;
+  border-radius:10px;
+  border: solid 3px #FF9100;
+}

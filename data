@@ -1,7 +1,0 @@
-url=mysql://root:gcnCrSgJVDn0HlHMkJ9b@containers-us-west-30.railway.app:6937/railway
-db=railway
-host=containers-us-west-30.railway.app
-
-pass=gcnCrSgJVDn0HlHMkJ9b
-port=6937
-user=root

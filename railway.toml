@@ -1,0 +1,5 @@
+[runtime]
+command = "php artisan serve --port $PORT"
+ignore = [
+    "/resources"
+]

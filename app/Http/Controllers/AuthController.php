@@ -28,12 +28,28 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         $data = $request->validated();
+        // those need to be changed based on the sheet that the club has
+        $isAdmin = false;
+        $depId = 2;
+        $roleId = 1;
+        $isMember = true;
+        $yearId = 1;
         $user = User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
+            'first_name' => $data["first_name"],
+            'last_name' => $data['last_name'],
+            'gender' => $data['gender'],
+            'branch_id' => $data['branch_id'],
+            'university' => $data['university'],
+            'year_id' => $yearId,
+            'is_member' => $isMember,
+            'is_admin' => $isAdmin,
+            'role_id' => $roleId,
+            'department_id' => $depId,
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-        $token = $user->createToken('main')->planTextToken;
+        $token = $user->createToken('main')->plainTextToken;
         return response(['user' => $user, 'token' => $token]);
     }
 

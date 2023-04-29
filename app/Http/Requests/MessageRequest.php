@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookRequest extends FormRequest
+class MessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,18 +21,11 @@ class BookRequest extends FormRequest
      */
     public function rules(): array
     {
+        // for later dev We need additional filtring rules for badwords
         return [
-            'title' => 'required|string',
-            'ISBN' => 'integer|required',
-            'desc' => 'string',
-            'Quantity' => 'integer|required',
-            'lang_id' => 'integer',
-            'location_id' => 'integer',
-            'field_id' => 'integer',
-            'vendor_id' => 'integer',
-            'publish_date' => 'date',
-            'edition' => 'string|required',
-            //
+            'content'=>'required|string',
+            'sender_id'=>'integer|required'
+
         ];
     }
 }

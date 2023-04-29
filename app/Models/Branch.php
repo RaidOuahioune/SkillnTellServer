@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patron extends Model
+class Branch extends Model
 {
     use HasFactory;
-    protected $table = 'patrons';
+
+    protected $table="branches";
 
     protected $fillable = [
-        'patron_email',
-        'first_name',
-        'last_name'
-    ];
+        'name',
+     ];
+
 }

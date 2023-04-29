@@ -54,7 +54,7 @@ nav button:hover {
 
 nav {
   font-family: 'Jost', sans-serif;
-  
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,4 +70,9 @@ nav {
   justify-content: center;
   border-radius:10px;
   border: solid 3px #FF9100;
+}
+.logout:hover{
+    cursor: pointer;
+    color: #FF9100;
+    background-color: white;
 }

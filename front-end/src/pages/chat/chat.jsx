@@ -8,6 +8,8 @@ import { NavBar } from "../../Components/NavBar/navbar";
 import { messageBubble } from "./messageBubble";
 import { axiosClient } from "../../utilities/axiosClient";
 import { useUserContext } from "../../contexts/UserContextProvider";
+import Pusher from "pusher-js";
+
 function ChatPage() {
     const [ready, setReady] = useState(false);
     const [error, setError] = useState(null);
@@ -47,7 +49,13 @@ function ChatPage() {
                 setError("Check Your ");
             });
         document.addEventListener("keydown", handleKeyPress);
-
+        let pusher = new Pusher("c85c0d9eb719341a04de", {
+            cluster: "eu",
+        });
+        let channel = pusher.subscribe("SKillnTell");
+        channel.bind("message", function (data) {
+            alert(JSON.stringify(data));
+        });
         return () => {
             // remove keyboard listener
             document.removeEventListener("keydown", handleKeyPress);
@@ -67,6 +75,7 @@ function ChatPage() {
             };
             console.log("##########");
             console.log(payload);
+
             axiosClient.post("messages/add", payload);
             setDummy((prev) => !prev);
             const updatedMessages = [
@@ -77,7 +86,6 @@ function ChatPage() {
             setNewMessage("");
         }
     };
-
 
     return (
         <>
@@ -95,7 +103,7 @@ function ChatPage() {
                             )
                         ) : (
                             <div className="flex justify-center mt-3">
-                                <HashLoader  color="#240046"></HashLoader>.
+                                <HashLoader color="#240046"></HashLoader>.
                             </div>
                         )}
                     </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 // creating the axios client
 const axiosClient = axios.create({
-    baseURL: 'https://painstaking-agreement-production.up.railway.app/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
     headers: {
         "Content-Type": "application/json",
     },

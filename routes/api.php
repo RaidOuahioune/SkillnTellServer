@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MessageController;
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
@@ -38,5 +39,12 @@ Route::post('/UserLogin', [AuthController::class, 'login']);
 Route::get("/messages",[MessageController::class,'all']);
 Route::post("/messages/add",[MessageController::class,"addMessage"]);
 
-
+//Branches routes
 Route::get("/branches",[BranchController::class,'all']);
+
+//Event routes
+Route::post("/events/add",[EventController::class,'addEvent']);
+Route::get("/events",[EventController::class, 'all']);
+
+//event image
+Route::get("/images",[EventController::class, 'all']);

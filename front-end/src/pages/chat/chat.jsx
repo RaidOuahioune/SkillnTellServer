@@ -11,10 +11,15 @@ import { useUserContext } from "../../contexts/UserContextProvider";
 import Pusher from "pusher-js";
 
 function ChatPage() {
+    let { user } = useUserContext();
     const [ready, setReady] = useState(false);
+    // this is to indicate whether we want to get old data
+    const [oldmessages, setOldMessages] = useState(true);
+    const [isTop, setTop] = useState(false);
     const [error, setError] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+
     // dummy var to cause useEffect to be called each time this variable changes
     // this variable is used to do the scolling behaviour after new messages arrive
 
@@ -22,11 +27,25 @@ function ChatPage() {
     const buttonRef = useRef(null);
     const inputRef = useRef(null);
     const scrollRef = useRef(null);
+
+    let updateMessage = (data) => {
+        setMessages((prevState) => {
+            // if the sender is the current user do not include the message in the array since it's done by the handleSend Message
+            if (user.id === data.message.sender_id) return [...prevState];
+            // else get the obtained message from the realtime feauture
+            return [
+                ...prevState,
+                {
+                    content: data.message.content,
+                    sender_id: data.message.sender_id,
+                },
+            ];
+        });
+    };
     useEffect(() => {
         // scrool to the bottom when there are new messages
-        const scrollableDiv = scrollRef.current;
-        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-    }, [dummy]);
+        scrollDown();
+    }, [dummy, ready]);
     // to set up event listeners
     useEffect(() => {
         function handleKeyPress(event) {
@@ -39,33 +58,34 @@ function ChatPage() {
             }
         }
         axiosClient
-            .get("/messages")
+            .get("/messages?skip=0")
             .then((res) => {
                 setMessages(Object.values(res.data));
                 setReady(true);
             })
             .catch((err) => {
                 setReady(true);
-                setError("Check Your ");
+                setError("Check Your Net");
             });
         document.addEventListener("keydown", handleKeyPress);
         let pusher = new Pusher("c85c0d9eb719341a04de", {
             cluster: "eu",
         });
         let channel = pusher.subscribe("SKillnTell");
-        channel.bind("message", function (data) {
-            alert(JSON.stringify(data));
+        channel.bind("message", (data) => {
+            updateMessage(data);
         });
+
         return () => {
             // remove keyboard listener
             document.removeEventListener("keydown", handleKeyPress);
+            pusher.disconnect();
         };
     }, []);
 
     const handleNewMessageChange = (event) => {
         setNewMessage(event.target.value);
     };
-    let { user } = useUserContext();
 
     const handleSendMessage = async () => {
         if (newMessage !== "") {
@@ -73,18 +93,42 @@ function ChatPage() {
                 sender_id: user.id,
                 content: newMessage,
             };
-            console.log("##########");
-            console.log(payload);
 
-            axiosClient.post("messages/add", payload);
-            setDummy((prev) => !prev);
-            const updatedMessages = [
-                ...messages,
-                { content: newMessage, sender_id: user.id },
-            ];
-            setMessages(updatedMessages);
-            setNewMessage("");
+            axiosClient.post("messages/add", payload).then((res) => {
+                const updatedMessages = [
+                    ...messages,
+                    { content: newMessage, sender_id: user.id },
+                ];
+                setMessages(updatedMessages);
+                setDummy((prev) => !prev);
+                setNewMessage("");
+            });
         }
+    };
+
+    let handleScroll = () => {
+        const scrollableDiv = scrollRef.current;
+        if (scrollableDiv.scrollTop ===0) {
+            setTop(true);
+            setOldMessages(true);
+            axiosClient
+                .get(`messages?skip=${messages.length ?? 0}`)
+                .then((res) => {
+                    let oldMessages = Object.values(res.data);
+                    const updatedMessages = [...oldMessages, ...messages];
+                    setMessages(updatedMessages);
+
+                    setTop(false);
+                    setOldMessages(false);
+                });
+            // check if we are scrolling and at the top of the div
+        } else {
+            setTop(false);
+        }
+    };
+    let scrollDown = () => {
+        const scrollableDiv = scrollRef.current;
+        scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
     };
 
     return (
@@ -93,7 +137,16 @@ function ChatPage() {
             <div className="chat-page flex flex-column w-100 mt-0 mx-0">
                 {/*<div className="info-column flex-column"></div>*/}
                 <div className="chat-column w-100 mx-0">
-                    <div className="messages flex-column" ref={scrollRef}>
+                    <div
+                        className="messages flex-column"
+                        ref={scrollRef}
+                        onScroll={handleScroll}
+                    >
+                        {oldmessages && isTop && (
+                            <div className="flex justify-center">
+                                <HashLoader color="#240046"></HashLoader>.
+                            </div>
+                        )}
                         {ready ? (
                             messages.map((message) =>
                                 messageBubble(

@@ -1,7 +1,7 @@
 footer {
   display: flex;
   justify-content: space-between;
-  
+
 
 }
 
@@ -14,14 +14,14 @@ footer .text-block {
 footer .text-block p {
   color: #240046;
   line-height: 25px;
-  
+
 }
 
 
 footer .text-block h1 {
   color: #FF9100;
   font-size: 35px;
-  
+
 }
 
 footer a {
@@ -41,7 +41,7 @@ footer .slider {
   justify-content: center;
   align-content: flex-start;
 
- 
+
 }
 
 footer .slider .head-block {
@@ -113,17 +113,16 @@ footer .slider .left-arrow:hover {
 .wave-wrapper{
   margin-top: 2%;
   padding: 0px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
- 
-}
-#wave{
   position: absolute;
   left: 0;
-  
-  
+  bottom: 0;
+}
+#wave{
+  position: absolute !important;
+  left: 0;
+  bottom: 0px !important;
+
+
 }
 path{
   width: 100%;

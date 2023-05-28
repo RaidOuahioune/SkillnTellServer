@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageEvent;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
-use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    function all()
+    private static $messageCount = 20;
+    function all(\Illuminate\Http\Request $request)
     {
-        return Message::all()->sortByDesc("created_at")->toArray();
+
+        $skip = $request->query("skip");
+        return Message::all()->sortByDesc("created_at")->skip($skip)->take(MessageController::$messageCount);
     }
     function addMessage(MessageRequest $request)
     {
@@ -20,6 +23,8 @@ class MessageController extends Controller
             "content" => $data["content"],
             "sender_id" => $data["sender_id"]
         ]);
+
+        event(new MessageEvent($message));
         return response()->json($message);
     }
 }

@@ -8,19 +8,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 Route::middleware('auth:sanctum')->group(function () {
     // those routes only accessed for loged in users
@@ -28,23 +17,15 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get("/messages", [MessageController::class, 'all']);
+    Route::post("/messages/add", [MessageController::class, "addMessage"]);
 });
+Route::get("/branches", [BranchController::class, 'all']);
 
 // authentication routes
-Route::post('/AddUser', [AuthController::class, 'signup']);
-Route::post('/UserLogin', [AuthController::class, 'login']);
+Route::post('/AddAdmin', [AuthController::class, 'signup']);
+Route::post('/AdminLogin', [AuthController::class, 'login']);
 
-// Mesagges routes
+Route::get("/events",[EventController::class,'all']);
 
-Route::get("/messages",[MessageController::class,'all']);
-Route::post("/messages/add",[MessageController::class,"addMessage"]);
-
-//Branches routes
-Route::get("/branches",[BranchController::class,'all']);
-
-//Event routes
-Route::post("/events/add",[EventController::class,'addEvent']);
-Route::get("/events",[EventController::class, 'all']);
-
-//event image
-Route::get("/images",[EventController::class, 'all']);

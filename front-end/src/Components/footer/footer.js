@@ -35,7 +35,7 @@ export function Footer() {
 
 export const FooterWave = ({ pageName }) => {
   return (
-    <div className="wave-wrapper">
+    <div className="wave-wrapper"  style={{ position: "fixed", bottom: 0, left: 0, width: "100%" }}>
       <Wave
         fill="#FF9100"
         id="wave"
@@ -45,11 +45,12 @@ export const FooterWave = ({ pageName }) => {
           amplitude: 20,
           speed: 0.1,
           points: 2,
+
         }}
       />
       {/*<div className="flex flex-column">*/}
       <div
-        className={`social flex justify-content-center ${
+        className={`social flex justify-content-center m-3 ${
           pageName === "event" ? "pt-5" : ""
         } `}
       >

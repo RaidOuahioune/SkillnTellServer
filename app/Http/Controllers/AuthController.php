@@ -7,7 +7,6 @@ use App\Http\Requests\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller
 {
@@ -22,7 +21,7 @@ class AuthController extends Controller
         // this line returns a UserModel instance
 
         $user = Auth::user();
-        $token = $user->createToken("main")->plainTextToken;;
+        $token = $user->createToken("main")->plainTextToken;
         return response(['user' => $user, 'token' => $token]);
     }
     public function signup(SignupRequest $request)

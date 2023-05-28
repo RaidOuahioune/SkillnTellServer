@@ -22,7 +22,7 @@ transform: scale(1.1);
 }
 .wave-wrapper{
   position: relative;
- 
+
 }
 #wave{
   margin: 0px;
@@ -34,4 +34,9 @@ path{
   width: 100%;
   margin: 0px;
   padding: 0px;
+}
+
+.event-wave{
+position: fixed;
+bottom: 0px;
 }

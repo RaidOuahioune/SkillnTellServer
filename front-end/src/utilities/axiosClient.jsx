@@ -1,8 +1,9 @@
 import axios from "axios";
+import { useUserContext } from "../contexts/UserContextProvider";
 
 // creating the axios client
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: "http://127.0.0.1:8000/api/",
     headers: {
         "Content-Type": "application/json",
     },
@@ -12,7 +13,6 @@ const axiosClient = axios.create({
 // creating the axios interceptors
 axiosClient.interceptors.request.use(
     (config) => {
-        console.log(`config:${config}`);
         const token = localStorage.getItem("ACCESS_TOKEN");
         config.headers.Authorization = `Bearer ${token}`;
         /* this the config that is used each time when sending a request
@@ -28,8 +28,10 @@ axiosClient.interceptors.response.use(
         if (response && response.status === 401) {
             // unauthorized so basically the provided token is not valid and henece we remove it
             localStorage.removeItem("ACCESS_TOKEN");
-            // here we need to update the context if necessary
+            let { setUser } = useUserContext();
+            setUser(null);
         }
+        console.log(error);
         throw error;
     }
 );

@@ -1,4 +1,4 @@
-class NonMembers{
+class users{
   + user_id:Integer(Primary key)
   + username:String
   + first_name:String
@@ -11,23 +11,13 @@ class NonMembers{
   + university:String
   + profile_img:String
   + year:String
-}
-class Member{
-  + member_id:Integer(Primary key)
-  + username:String
-  + first_name:String
-  + last_name:String
-  + email:String
-  + password:String
-  + register_date:Date
-  + profile_img:String
-  + gender:char
-  + branch_id:Integer
-  + university:String
-  + year:String
+  + is_admin:Integer
+  + is_member:Integer
   + role:String(member or head)
   + department_id:integer(Foreign key)
 }
+
+
 class Branch{
   + branch_id:Integer
   + branch_name:String
@@ -66,24 +56,17 @@ class Tutor{
   + title:String
   + description:String
   + profile_img:String
-
 }
 
-/'for office members'/
-class Admins{
-  + admin_id:Integer(Primary key)
-  + username:String
-  + first_name:String
-  + last_name:String
-  + email:String
-  + password:String
-  + registerDate:Date
-  + gender:char
-  + branch_id:Integer
-  + university:String
-  + year: string
-  + profile_img:String
-  + role :String(president|head or anyother)
+
+class Year{
+    year_id:Integer
+    year:String
+}
+
+class Role{
+    role_id:Integer
+    role_name:String
 }
 
 class Event_Image{
@@ -93,21 +76,19 @@ class Event_Image{
 
 Tutor }|--o{ Event :Participate
 
-Member ||--|{Department :Belongs_to
+users ||--|{Department :Belongs_to
 
 
 
-Message ||--o{Member
-Message ||--o{Admins
+Message ||--o{users
 
 
-NonMembers ||--o{Branch
-Member ||--o{Branch
-Admins ||--o|Branch
+users ||--o{Branch:Studies in Branch
 
 
-NonMembers }o--|{Event :Participate in
-Member }o--|{Event :Participate in
-Admins }o--|{Event :Participate in
+users }o--|{Event :Participate in
 
 Event_Image}o--o{Event
+
+users }o--||Year:Scholar year
+users }o--||Role:Scholar year

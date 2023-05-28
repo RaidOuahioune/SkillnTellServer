@@ -49,8 +49,8 @@ export function Login() {
         <div className="no-scroll">
             <NavBar></NavBar>
             <form onSubmit={handleSubmit}>
-                <MDBContainer className="mt-5 gradient-form" fluid>
-                    <MDBCard className="my-5" style={{ borderRadius: "4rem" }}>
+                <MDBContainer className="mt-5 gradient-form" style={{borderRadius: "2rem"}} fluid>
+                    <MDBCard className="my-5" style={{ borderRadius: "2rem" }}>
                         <div className="flex flex-col md:flex-row">
                             <MDBCol col="6" className="mb-5">
                                 <div className="d-flex flex-column ms-5 px-4">

@@ -31,6 +31,10 @@ class EventController extends Controller
             "responsible_id" => $data["responsible_id"]
 
         ]);
-        return response()->json('Event created successfully', 200);
+        if($event){
+        return response('Event created successfully', 200);
+        }else{
+            return response('Failed to create event',400);
+        }
     }
 }

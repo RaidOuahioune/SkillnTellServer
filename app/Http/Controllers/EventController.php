@@ -11,11 +11,11 @@ class EventController extends Controller
     function all()
     {
 
-        return $events = Events::join('event_images', 'events.id', '=', 'event_images.event_id')
+        return $events = Events::leftjoin('event_images', 'events.id', '=', 'event_images.event_id')
         ->orderByDesc('date')
         ->select('events.*', 'event_images.*')
         ->get()->toArray();
-        
+
     }
     function addEvent(EventRequest $request)
     {
@@ -29,8 +29,7 @@ class EventController extends Controller
             "location" => $data["location"],
             "monitor_id" => $data["monitor_id"],
             "responsible_id" => $data["responsible_id"]
-
         ]);
-        return response()->json('Event created successfully', 200);
+        return response('Event created successfully', 200);
     }
 }

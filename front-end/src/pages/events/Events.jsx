@@ -11,20 +11,22 @@ import "./Events.css";
 import { axiosClient } from "../../utilities/axiosClient";
 import { useEffect } from "react";
 
+
+
 export const Events = () => {
-    const [eventsList, setEventList] = useState([]);
-    useEffect(() => {
-        axiosClient
-            .get("/events")
-            .then((res) => {
-                setEventList(Object.values(res.data));
-                // setReady(true);
-            })
-            .catch((err) => {
-                // setReady(true);
-                // setError("");
-            });
-    }, []);
+    //const [eventsList, setEventList] = useState([]);
+    //useEffect(() => {
+    //    axiosClient
+    //        .get("/events")
+    //        .then((res) => {
+    //            setEventList(Object.values(res.data));
+    //            // setReady(true);
+    //        })
+    //        .catch((err) => {
+    //            // setReady(true);
+    //            // setError("");
+    //        });
+    //}, []);
     return (
         <>
             <NavBar></NavBar>

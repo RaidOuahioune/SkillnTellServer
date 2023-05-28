@@ -1,12 +1,25 @@
-import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBRow } from 'mdb-react-ui-kit';
-import "./EventCardStyles.css"
+import React from "react";
+import {
+    MDBCard,
+    MDBCardBody,
+    MDBCardImage,
+    MDBCol,
+    MDBRow,
+} from "mdb-react-ui-kit";
+import "./EventCardStyles.css";
+
+//import posterImage from  "../../../assets/Events/Arcade-2023-Cover.jpg"
+
 export function EventCard({ title, date, location, poster, description }) {
     return (
-        <MDBCard className="event-card" style={{ borderRadius: '4rem' }}>
+        <MDBCard className="event-card" style={{ borderRadius: "4rem" }}>
             <MDBRow className="g-0">
                 <MDBCol className="poster-col" md="5">
-                    <MDBCardImage src={poster} alt={title} className="event-poster" />
+                    <MDBCardImage
+                        src={poster}
+                        alt={title}
+                        className="event-poster"
+                    />
                 </MDBCol>
                 <MDBCol md="7">
                     <MDBCardBody>

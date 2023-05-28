@@ -30,9 +30,6 @@ function ChatPage() {
 
     let updateMessage = (data) => {
         setMessages((prevState) => {
-            // if the sender is the current user do not include the message in the array since it's done by the handleSend Message
-            if (user.id === data.message.sender_id) return [...prevState];
-            // else get the obtained message from the realtime feauture
             return [
                 ...prevState,
                 {
@@ -41,6 +38,7 @@ function ChatPage() {
                 },
             ];
         });
+        setDummy((prev) => !prev);
     };
     useEffect(() => {
         // scrool to the bottom when there are new messages
@@ -73,6 +71,7 @@ function ChatPage() {
         });
         let channel = pusher.subscribe("SKillnTell");
         channel.bind("message", (data) => {
+            console.log(data);
             updateMessage(data);
         });
 
@@ -95,11 +94,11 @@ function ChatPage() {
             };
 
             axiosClient.post("messages/add", payload).then((res) => {
-                const updatedMessages = [
-                    ...messages,
-                    { content: newMessage, sender_id: user.id },
-                ];
-                setMessages(updatedMessages);
+                //const updatedMessages = [
+                //    ...messages,
+                //    { content: newMessage, sender_id: user.id },
+                //];
+                //setMessages(updatedMessages);
                 setDummy((prev) => !prev);
                 setNewMessage("");
             });
@@ -108,7 +107,7 @@ function ChatPage() {
 
     let handleScroll = () => {
         const scrollableDiv = scrollRef.current;
-        if (scrollableDiv.scrollTop ===0) {
+        if (scrollableDiv.scrollTop === 0) {
             setTop(true);
             setOldMessages(true);
             axiosClient
@@ -116,11 +115,12 @@ function ChatPage() {
                 .then((res) => {
                     let oldMessages = Object.values(res.data);
                     const updatedMessages = [...oldMessages, ...messages];
-                    setMessages(updatedMessages);
 
+                    setMessages(updatedMessages);
                     setTop(false);
                     setOldMessages(false);
                 });
+
             // check if we are scrolling and at the top of the div
         } else {
             setTop(false);

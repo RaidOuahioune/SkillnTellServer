@@ -8,7 +8,7 @@ use App\Models\Message;
 
 class MessageController extends Controller
 {
-    private static $messageCount = 6;
+    private static $messageCount = 20;
     function all(\Illuminate\Http\Request $request)
     {
 

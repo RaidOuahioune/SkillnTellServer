@@ -45,6 +45,7 @@ export const FooterWave = ({ pageName }) => {
           amplitude: 20,
           speed: 0.1,
           points: 2,
+          position:""
         }}
       />
       {/*<div className="flex flex-column">*/}

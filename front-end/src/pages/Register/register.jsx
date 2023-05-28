@@ -42,25 +42,25 @@ export function Register() {
             password: passREf.current.value,
             password_confirmation: ConfirmPassRef.current.value,
         };
-        console.log(payload);
+        //console.log(payload);
         if (payload.branch_id) {
             axiosClient
-                .post("/AddUser", payload)
+                .post("/AddAdmin", payload)
                 .then((res) => {
-                        setError(null);
-                        setUser(res.data.user);
-                        setToken(res.data.token);
-                        navigate("/chat");
+                    setError(null);
 
+                    setUser(res.data.user);
+                    setToken(res.data.token);
+                    navigate("/chat");
                 })
                 .catch((err) => {
-                    let errors = err.response.data.errors;
-                    console.log(errors);
-                    errors.password
-                        ? setError(err.response.data.errors.password)
-                        : setError("Something Wrong Happened");
+                    if (err.response && err.response.data) {
+                        setError(err.response.data.message);
+                    } else {
+                        setError("Something Wrong Happened");
+                    }
                 });
-        }else{
+        } else {
             setError("Please Choose a Branch !");
         }
     };
@@ -75,10 +75,10 @@ export function Register() {
     }, []);
 
     //context stuff
-    let{setUser,setToken}=useUserContext();
+    let { setUser, setToken } = useUserContext();
 
     // navigation stuf
-    let navigate=useNavigate();
+    let navigate = useNavigate();
 
     return (
         <div className="">
@@ -201,7 +201,7 @@ export function Register() {
                                         </p>
                                         <button
                                             className="btn"
-                                            onClick={()=>navigate("/login")}
+                                            onClick={() => navigate("/login")}
                                         >
                                             Login
                                         </button>

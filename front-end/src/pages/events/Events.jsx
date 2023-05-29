@@ -26,9 +26,7 @@ export const Events = () => {
         width: 400,
         bgcolor: 'background.paper',
         boxShadow: 24,
-        p: 4,/* 
-        maxHeight: '80vh',
-        overflow: "auto" */
+        p: 4,
     };
 
 
@@ -55,11 +53,6 @@ export const Events = () => {
             .catch((err) => {
 
             });
-        /* axiosClient
-            .get("/events/add")
-            .then(res => {
-                console.log("RESPONSE FROM ALL", res);
-            }) */
     }, []);
 
     return (

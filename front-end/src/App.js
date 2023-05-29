@@ -7,6 +7,7 @@ import { ChatPage } from "./pages/chat/chat";
 import { Register } from "./pages/Register/register";
 import { Events } from "./pages/events/Events";
 import { useUserContext } from "./contexts/UserContextProvider";
+import EventModal from "./pages/events/EventsComponents/EventModal";
 function App() {
     let { user, token } = useUserContext();
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/events" element={<Events />}></Route>
                 <Route path="/login" element={<Login />}></Route>
+                <Route path="/addevent" element={<EventModal />}></Route>
                 {user && token && (
                     <Route path="/chat" element={<ChatPage />}></Route>
                 )}

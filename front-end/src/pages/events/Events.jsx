@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { eventsList } from "./EventsComponents/eventsList";
 import { EventCard } from "./EventsComponents/EventCard";
 import { NavBar } from "../../Components/NavBar/navbar";
 import "./EventsComponents/EventCardStyles.css";
@@ -11,34 +10,53 @@ import "./Events.css";
 import { axiosClient } from "../../utilities/axiosClient";
 import { useEffect } from "react";
 
-
-
+import AddEventModal from "./EventsComponents/addEvent";
 export const Events = () => {
-    //const [eventsList, setEventList] = useState([]);
-    //useEffect(() => {
-    //    axiosClient
-    //        .get("/events")
-    //        .then((res) => {
-    //            setEventList(Object.values(res.data));
-    //            // setReady(true);
-    //        })
-    //        .catch((err) => {
-    //            // setReady(true);
-    //            // setError("");
-    //        });
-    //}, []);
+    const [eventsList, setEventList] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+
+    // Rest of the code...
+
+    // Function to handle opening the modal
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    // Function to handle closing the modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    useEffect(() => {
+        axiosClient
+            .get("/events")
+            .then((res) => {
+                console.log(res.data);
+                setEventList(Object.values(res.data));
+            })
+            .catch((err) => {
+
+            });
+    }, []);
+
     return (
         <>
             <NavBar></NavBar>
+            {isModalOpen && <AddEventModal closeModal={closeModal} />}
 
-            <button className="btn">Add an Event</button>
+            <div className="flex justify-center m-3">
+                <button className="btn jus" onClick={openModal}>
+                    Add an Event
+                </button>
+            </div>
             {eventsList.map((event) => (
                 <MDBContainer>
                     <EventCard
                         key={event.id}
                         title={event.title}
                         date={event.date}
-                        poster={event.poster}
+                        poster={require("../../assets/Events/Arcade-2023-Cover.jpg")}
                         description={event.description}
                     />
                 </MDBContainer>

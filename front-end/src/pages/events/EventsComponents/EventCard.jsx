@@ -25,7 +25,7 @@ export function EventCard({ title, date, location, poster, description }) {
                     <MDBCardBody>
                         <h5 className="card-title">{title}</h5>
                         <p className="card-text">{description}</p>
-                        <div className="d-flex flex-row justify-content-between">
+                        <div className="d-flex flex-row justify-content-between" style={{ alignSelf: "flex-end" }}>
                             <p className="card-subtitle">{date}</p>
                             <p className="card-subtitle">{location}</p>
                         </div>

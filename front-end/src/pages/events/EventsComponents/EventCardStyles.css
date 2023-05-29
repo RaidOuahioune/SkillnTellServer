@@ -28,8 +28,9 @@
 
 .card-subtitle {
     color: white;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     margin-top: 1rem;
+    align-self: "flex-end";
 }
 
 .card-text {
@@ -57,4 +58,14 @@
     .poster-col {
         margin-bottom: 1rem;
     }
+}
+
+
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #621da3;
+    border-radius: 18%;
 }

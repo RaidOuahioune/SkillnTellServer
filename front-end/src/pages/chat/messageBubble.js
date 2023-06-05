@@ -1,7 +1,8 @@
-export function messageBubble(message, isUser) {
-  return isUser ? (
+export function messageBubble(message, sender, user) {
+  return sender.id === user.id ? (
     <div className="flex flex-row-reverse">
       <div className="message-sent mt-10 message">
+        <h1>{user.username}</h1>
         <div className="message-content">
           <p> {message} </p>
         </div>

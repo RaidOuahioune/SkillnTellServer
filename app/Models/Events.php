@@ -9,18 +9,18 @@ class Events extends Model
 {
     use HasFactory;
 
-    protected $table="events";
+    protected $table = "events";
 
 
-    public $timestamps=true;
+    public $timestamps = true;
     protected $fillable = [
-       'title',
-       'description',
-       'tags',
-       'date',
-       'location',
-       'monitor_id',
-       'responsible_id',
+        'title',
+        'description',
+        'tages',
+        'date',
+        'location',
+        'monitor_id',
+        'responsible_id',
     ];
 
 

@@ -151,7 +151,7 @@ function ChatPage() {
                             messages.map((message) =>
                                 messageBubble(
                                     message.content,
-                                    message.sender_id === user.id
+                                    message.sender_id, user
                                 )
                             )
                         ) : (

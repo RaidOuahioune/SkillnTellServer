@@ -9,15 +9,20 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-
 import logoOnly from "../../../assets/sntLogoOnly.png";
 import ModalContext from "../../../contexts/ModalContext";
 import { axiosClient } from "../../../utilities/axiosClient";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { MySelect } from "../../Register/select/select";
 
 const EventModal = ({ style }) => {
   // Create the necessary state variables and functions to handle form inputs
-  const { closeModal, setEventList, setSuccess, setError } = useContext(ModalContext);
+  const { closeModal, setEventList, setSuccess, setError, monitor_id, responsible_id } = useContext(ModalContext);
 
+
+  const [monitorSelected, setMonitorSelected] = useState("");
+  const [responsibleSelected, setResponsibleSelected] = useState("");
 
   let eventName = useRef();
   let eventDesc = useRef();
@@ -26,41 +31,41 @@ const EventModal = ({ style }) => {
   let eventImage = useRef();
   let eventLocation = useRef();
   let eventImageAlt = useRef();
-  let eventMonitorId = useRef();
-  let eventResponsibleId = useRef();
+
 
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
 
-
     let payload = {
       title: eventName.current.value,
       description: eventDesc.current.value,
-      tags: eventTags.current.value,
+      tages: eventTags.current.value,
       date: eventDate.current.value,
       location: eventLocation.current.value,
-      monitor_id: eventMonitorId.current.value,
-      responsible_id: eventResponsibleId.current.value
+      monitor_id: monitorSelected,
+      responsible_id: responsibleSelected
     }
 
-    setEventList(prev => {
-      return [
-        ...prev,
-        payload
-      ]
-    })
-
-    axiosClient.post("/events/add", payload).then(
-      res => {
-        setSuccess(res.message);
-      }
-    ).catch(
-      err => {
-        setError("Failed Adding Event");
-      }
-    )
+    axiosClient.post("/events/add", payload)
+      .then(
+        res => {
+          setSuccess("Event Added Successfully");
+          console.log(res.data);
+          setEventList(prev => {
+            return [
+              res.data,
+              ...prev
+            ]
+          })
+        })
+      .catch(
+        err => {
+          console.log(err);
+          setError("Failed Adding Event");
+        }
+      )
     closeModal();
   };
 
@@ -147,24 +152,55 @@ const EventModal = ({ style }) => {
 
             />
 
-            <MDBInput
-              className="mb-1"
-              label="Monitor ID"
-              id="typeText"
-              type="text"
-              ref={eventMonitorId}
-              wrapperClass="mb-4"
-            />
+            Monitor ID:
+            <div
+              className="mt-1"
+            ></div>
+            <MySelect
+              options={{
+                fields: monitor_id.map(
+                  monitor => {
+                    return {
+                      label: monitor.full_name,
+                      value: monitor.id
+                    }
+                  }
+                )
+              }}
+              title="Montior ID"
+              setState={setMonitorSelected}
+            ></MySelect>
 
-            <MDBInput
-              className="mb-1"
-              label="Responsible ID"
-              id="typeText"
-              type="text"
-              ref={eventResponsibleId}
-              wrapperClass="mb-4"
 
-            />
+            <div
+              className="mt-4"
+            ></div>
+            Responsible ID:
+            <div
+              className="mt-1"
+            ></div>
+            <MySelect
+              options={{
+                fields: responsible_id.map(
+                  responsible => {
+                    return {
+                      label: responsible.full_name,
+                      value: responsible.id
+                    }
+                  }
+                )
+              }}
+              title="Responsible ID"
+              setState={setResponsibleSelected}
+            ></MySelect>
+
+
+
+            <div
+              className="mt-4"
+            ></div>
+
+
 
             <MDBInput
               className="mb-1"

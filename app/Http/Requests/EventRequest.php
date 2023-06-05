@@ -22,13 +22,13 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'title' => 'required|string',
-        'description' => 'required|string',
-        'tags' => 'string|required',
-        'date' => 'date|required',
-        'location'=> 'required|string',
-        'monitor_id'=> 'required|integer',
-        'responsible_id'=>'required|integer',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'tages' => 'string|required',
+            'date' => 'date|required',
+            'location' => 'required|string',
+            'monitor_id' => 'required|integer',
+            'responsible_id' => 'required|integer',
         ];
     }
 }

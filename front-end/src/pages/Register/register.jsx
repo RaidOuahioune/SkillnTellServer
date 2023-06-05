@@ -1,6 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
 import logoOnly from "../../assets/sntLogoOnly.png";
-
 import {
     MDBBtn,
     MDBContainer,

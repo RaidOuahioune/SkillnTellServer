@@ -1,4 +1,3 @@
-
 .social a {
   display: inline;
   font-size: 20px;
@@ -6,37 +5,43 @@
   transition: .2s ease;
   color: black;
 }
-.social a:hover{ transition: .2s ease;
-transform: scale(1.1);
+
+.social a:hover {
+  transition: .2s ease;
+  transform: scale(1.1);
 }
-.social{
+
+.social {
   position: relative;
   z-index: 1;
   margin-top: 70px;
   display: flex;
-  align-items:flex-start;
+  align-items: flex-start;
   justify-content: space-between;
   height: 100%;
   width: 100%;
 
 }
-.wave-wrapper{
+
+.wave-wrapper {
   position: relative;
 
 }
-#wave{
+
+#wave {
   margin: 0px;
   position: absolute;
   left: 0;
   top: 0;
 }
-path{
+
+path {
   width: 100%;
   margin: 0px;
   padding: 0px;
 }
 
-.event-wave{
-position: fixed;
-bottom: 0px;
+.event-wave {
+  position: fixed;
+  bottom: 0px;
 }

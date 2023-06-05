@@ -12,11 +12,21 @@ import Modal from '@mui/material/Modal';
 import { useEffect } from "react";
 import EventModal from "./EventsComponents/EventModal";
 import ModalContext from "../../contexts/ModalContext";
+import HashLoader from "react-spinners/ClipLoader";
+import { useUserContext } from "../../contexts/UserContextProvider";
 export const Events = () => {
+
+
+    const { user } = useUserContext();
+
     const [eventsList, setEventList] = useState([]);
+    const [monitor_id, setMonitor_id] = useState([]);
+    const [responsible_id, setResponsible_id] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+    const [noEvents, setNoEvents] = useState(false);
     const [success, setSuccess] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const style = {
         position: 'absolute',
@@ -43,17 +53,56 @@ export const Events = () => {
     };
 
     useEffect(() => {
+        if (eventsList.length === 0) {
+            setNoEvents(true);
+        }
+        else {
+            setNoEvents(false);
+        }
+        setSuccess("");
+        setError("");
+    }, [eventsList])
 
+    useEffect(() => {
+        // FETCHING EVENTS
         axiosClient
             .get("/events")
             .then((res) => {
                 console.log("RESPONSE FROM ALL", res.data);
+                setLoading(false);
                 setEventList(Object.values(res.data));
+                if (eventsList.length === 0) {
+                    setNoEvents(true);
+                }
             })
             .catch((err) => {
 
             });
+        // FETCHING ADMINS (MONITORS)
+        axiosClient
+            .get("/events/users/admins")
+            .then(res => {
+                console.log("MONITORS RESPONSEEEEEEEE: ", res.data);
+                setMonitor_id(res.data);
+            }).catch(err => {
+
+            })
+        // FETCHING RESPONSIBLE ID
+
+
+        axiosClient
+            .get("events/users")
+            .then(res => {
+                console.log("RESPONSIBLEEEEEEEEEESSSSSSSS", res.data);
+                setResponsible_id(res.data);
+            })
+            .catch(
+                err => {
+
+                })
+
     }, []);
+
 
     return (
         <>
@@ -61,17 +110,29 @@ export const Events = () => {
 
             <Modal open={isModalOpen} onClose={closeModal} keepMounted>
                 <ModalContext.Provider
-                    value={{ closeModal, setEventList, eventsList, setSuccess, setError }}
+                    value={{ closeModal, setEventList, eventsList, setSuccess, setError, monitor_id, responsible_id }}
                 >
                     <EventModal style={style} />
                 </ModalContext.Provider>
             </Modal>
 
-            <div className="flex justify-center m-3 ">
-                <button className="btn btn-sm jus" onClick={openModal}>
-                    Add an Event
-                </button>
-            </div>
+
+
+            {
+                !loading && user.is_admin &&
+                <div className="flex justify-center m-3 ">
+                    <button className="btn btn-sm jus" onClick={openModal}>
+                        Add an Event
+                    </button>
+                </div>
+            }
+
+
+            {
+                noEvents &&
+                <h1 className="text-center mt-5">No Events Available</h1>
+            }
+
             <div className="flex justify-center m-3 ">
                 {success && (
                     <p className="text-succes">{success}</p>
@@ -80,6 +141,15 @@ export const Events = () => {
                     <p className="text-danger">{error}</p>
                 )}
             </div>
+
+
+            {
+                loading &&
+                <div className="flex justify-center">
+                    <HashLoader color="#240046"></HashLoader>.
+                </div>
+            }
+
 
             {eventsList.map((event) => (
                 <MDBContainer>
@@ -90,11 +160,14 @@ export const Events = () => {
                         poster={require("../../assets/Events/Arcade-2023-Cover.jpg")}
                         location={event.location}
                         description={event.description}
+                        id={event.id}
+                        setEventList={setEventList}
                     />
                 </MDBContainer>
             ))}
 
-            <div className="wave-event">
+            <div className="mb-10"></div>
+            <div className="wave-event sticky-bottom">
                 <FooterWave pageName={"event"}></FooterWave>
             </div>
         </>

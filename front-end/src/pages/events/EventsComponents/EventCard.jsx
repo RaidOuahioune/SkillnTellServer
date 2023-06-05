@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    MDBBtn,
     MDBCard,
     MDBCardBody,
     MDBCardImage,
@@ -7,14 +8,35 @@ import {
     MDBRow,
 } from "mdb-react-ui-kit";
 import "./EventCardStyles.css";
+import { useUserContext } from "../../../contexts/UserContextProvider";
+import { axiosClient } from "../../../utilities/axiosClient";
 
-//import posterImage from  "../../../assets/Events/Arcade-2023-Cover.jpg"
 
-export function EventCard({ title, date, location, poster, description }) {
+export function EventCard({ title, date, location, poster, description, id, setEventList }) {
+
+    const { user } = useUserContext();
     return (
         <MDBCard className="event-card" style={{ borderRadius: "4rem" }}>
             <MDBRow className="g-0">
                 <MDBCol className="poster-col" md="5">
+                    {
+                        user.is_admin &&
+                        <MDBBtn className="close-btn" onClick={
+                            () => {
+                                console.log("DELETE CLICKED");
+                                axiosClient.delete(
+                                    `events/delete/${id}`
+                                ).then(res => {
+                                    console.log("EVENT DELETED SUCCCSSS");
+                                    setEventList(
+                                        prev => prev.filter(ev => ev.id != id)
+                                    )
+                                }).catch(err => {
+                                    console.log(err);
+                                })
+                            }
+                        } >Delete</MDBBtn>
+                    }
                     <MDBCardImage
                         src={poster}
                         alt={title}

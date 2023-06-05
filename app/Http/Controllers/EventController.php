@@ -26,13 +26,21 @@ class EventController extends Controller
         $event = Events::create([
             "title" => $data["title"],
             "description" => $data["description"],
-            "tags" => $data["tags"],
+            "tages" => $data["tages"],
             "date" => $data["date"],
             "location" => $data["location"],
             "monitor_id" => $data["monitor_id"],
             "responsible_id" => $data["responsible_id"]
         ]);
-        return response('Event created successfully', 200);
+        return response($event, 200);
+    }
+
+    function deleteEvent(Request $request, $id)
+    {
+        $event = Events::findOrFail($id);
+        $event->delete();
+        return response("Event deleted successfully", 200);
+
     }
 
     function getUsers()

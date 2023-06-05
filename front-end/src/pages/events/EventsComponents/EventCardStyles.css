@@ -8,6 +8,24 @@
     border-radius: 1rem;
 }
 
+.event-card {
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
 .event-poster {
     width: 100%;
     height: 100%;

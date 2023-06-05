@@ -35,13 +35,13 @@ export function Footer() {
 
 export const FooterWave = ({ pageName }) => {
   return (
-    <div className="wave-wrapper"  style={{ position: "fixed", bottom: 0, left: 0, width: "100%" }}>
+    <div className="wave-wrapper" /* style={{ position: "fixed", bottom: 0, left: 0, width: "100%" }} */>
       <Wave
         fill="#FF9100"
         id="wave"
         paused={false}
         options={{
-          height: 20,
+          height: 5,
           amplitude: 20,
           speed: 0.1,
           points: 2,
@@ -50,9 +50,8 @@ export const FooterWave = ({ pageName }) => {
       />
       {/*<div className="flex flex-column">*/}
       <div
-        className={`social flex justify-content-center m-3 ${
-          pageName === "event" ? "pt-5" : ""
-        } `}
+        className={`social flex justify-content-center m-3 ${pageName === "event" ? "pt-5" : ""
+          } `}
       >
         <a href="https://discord.gg/SSQWgXTtHb" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faDiscord} size="2x" className="mx-3 md:mx-5" />
@@ -64,7 +63,7 @@ export const FooterWave = ({ pageName }) => {
             className="mx-3 md:mx-5"
           ></FontAwesomeIcon>
         </a>
-        <a href="https://www.linkedin.com/in/skill-and-tell-club-b5a051251/"  target="_blank" rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/skill-and-tell-club-b5a051251/" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon
             icon={faLinkedin}
             size="2x"

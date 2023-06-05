@@ -38,6 +38,21 @@ export function DesktopNav() {
                             )}
                         </>
                     );
+                } else if (e.label === "Login") {
+                    return (
+                        <>
+                            {(!user || !token) && (
+                                <li>
+                                    <a>
+                                        <Link className="link" to={e.link}>
+                                            {e.label}
+                                        </Link>
+                                    </a>
+                                </li>
+                            )}
+                        </>
+                    )
+
                 } else {
                     return (
                         <li>
@@ -56,11 +71,11 @@ export function DesktopNav() {
         <>
             <nav className="flex flex-col justify-between align-center md:flex-row mx-10">
                 <div className="logo z-1">
-                    <img src={logo} alt="Skill&Tell" />
+                    <img src={logo} alt="Skill&Tell" width="auto" />
                 </div>
                 {linkNav}
 
-                {user && token &&<div className="d-flex justify-end">
+                {user && token && <div className="d-flex justify-end">
                     <div className="me-5"></div>
                     <button onClick={logout} className="mx-5 logout">
                         <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>

@@ -3,7 +3,7 @@ import { useUserContext } from "../contexts/UserContextProvider";
 
 // creating the axios client
 const axiosClient = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: "https://painstaking-agreement-production.up.railway.app/api/",
     headers: {
         "Content-Type": "application/json",
     },

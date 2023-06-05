@@ -167,9 +167,7 @@ export const Events = () => {
             ))}
 
             <div className="mb-10"></div>
-            <div className="wave-event sticky-bottom">
-                <FooterWave pageName={"event"}></FooterWave>
-            </div>
+
         </>
     );
 };

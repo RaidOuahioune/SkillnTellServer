@@ -25,8 +25,8 @@ Route::get("/branches", [BranchController::class, 'all']);
 
 // authentication routes
 Route::post('/AddAdmin', [AuthController::class, 'signup']);
-Route::post('/AdminLogin', [AuthController::class, 'login']);
-Route::post("/events/add",[EventController::class,'addEvent']);
+Route::post('/UserLogin', [AuthController::class, 'login']);
+Route::post("/events/add", [EventController::class, 'addEvent']);
 
-Route::get("/events",[EventController::class,'all']);
-
+Route::get("/events", [EventController::class, 'all']);
+Route::get("/usernames", [EventController::class, 'getUsers']);

@@ -19,7 +19,7 @@ function ChatPage() {
     const [error, setError] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
-
+    const [users, setUsers] = useState([]);
     // dummy var to cause useEffect to be called each time this variable changes
     // this variable is used to do the scolling behaviour after new messages arrive
 
@@ -55,6 +55,8 @@ function ChatPage() {
                 buttonRef.current.click();
             }
         }
+
+        axiosClient.get("/usernames").then((res) => setUsers(res.data));
         axiosClient
             .get("/messages?skip=0")
             .then((res) => {
@@ -151,7 +153,9 @@ function ChatPage() {
                             messages.map((message) =>
                                 messageBubble(
                                     message.content,
-                                    message.sender_id === user.id
+                                    message.sender_id,
+                                    user,
+                                    users
                                 )
                             )
                         ) : (

@@ -133,13 +133,14 @@ export const Events = () => {
                     <HashLoader color="#240046"></HashLoader>.
                 </div>
             )}
+
             {eventsList.map((event) => (
                 <MDBContainer>
                     <EventCard
                         key={event.id}
                         title={event.title}
                         date={event.date}
-                        poster={"https://painstaking-agreement-production.up.railway.app"+event.event_path}
+                        poster={"http://127.0.0.1:8000"+event.event_path}
                         location={event.location}
                         description={event.description}
                         id={event.id}

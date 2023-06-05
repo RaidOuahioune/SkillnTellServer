@@ -8,15 +8,13 @@ import { FooterWave } from "../../Components/footer/footer";
 import "../../Components/footer/footer.css";
 import "./Events.css";
 import { axiosClient } from "../../utilities/axiosClient";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 import { useEffect } from "react";
 import EventModal from "./EventsComponents/EventModal";
 import ModalContext from "../../contexts/ModalContext";
 import HashLoader from "react-spinners/ClipLoader";
 import { useUserContext } from "../../contexts/UserContextProvider";
 export const Events = () => {
-
-
     const { user } = useUserContext();
 
     const [eventsList, setEventList] = useState([]);
@@ -29,16 +27,15 @@ export const Events = () => {
     const [loading, setLoading] = useState(true);
 
     const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
         width: 400,
-        bgcolor: 'background.paper',
+        bgcolor: "background.paper",
         boxShadow: 24,
         p: 4,
     };
-
 
     // Rest of the code...
 
@@ -55,13 +52,12 @@ export const Events = () => {
     useEffect(() => {
         if (eventsList.length === 0) {
             setNoEvents(true);
-        }
-        else {
+        } else {
             setNoEvents(false);
         }
         setSuccess("");
         setError("");
-    }, [eventsList])
+    }, [eventsList]);
 
     useEffect(() => {
         // FETCHING EVENTS
@@ -75,34 +71,25 @@ export const Events = () => {
                     setNoEvents(true);
                 }
             })
-            .catch((err) => {
-
-            });
+            .catch((err) => {});
         // FETCHING ADMINS (MONITORS)
         axiosClient
             .get("/events/users/admins")
-            .then(res => {
+            .then((res) => {
                 console.log("MONITORS RESPONSEEEEEEEE: ", res.data);
                 setMonitor_id(res.data);
-            }).catch(err => {
-
             })
+            .catch((err) => {});
         // FETCHING RESPONSIBLE ID
-
 
         axiosClient
             .get("events/users")
-            .then(res => {
+            .then((res) => {
                 console.log("RESPONSIBLEEEEEEEEEESSSSSSSS", res.data);
                 setResponsible_id(res.data);
             })
-            .catch(
-                err => {
-
-                })
-
+            .catch((err) => {});
     }, []);
-
 
     return (
         <>
@@ -110,46 +97,42 @@ export const Events = () => {
 
             <Modal open={isModalOpen} onClose={closeModal} keepMounted>
                 <ModalContext.Provider
-                    value={{ closeModal, setEventList, eventsList, setSuccess, setError, monitor_id, responsible_id }}
+                    value={{
+                        closeModal,
+                        setEventList,
+                        eventsList,
+                        setSuccess,
+                        setError,
+                        monitor_id,
+                        responsible_id,
+                    }}
                 >
                     <EventModal style={style} />
                 </ModalContext.Provider>
             </Modal>
 
-
-
-            {
-                !loading && user.is_admin &&
+            {!loading && user.is_admin && (
                 <div className="flex justify-center m-3 ">
                     <button className="btn btn-sm jus" onClick={openModal}>
                         Add an Event
                     </button>
                 </div>
-            }
+            )}
 
-
-            {
-                noEvents &&
+            {noEvents && (
                 <h1 className="text-center mt-5">No Events Available</h1>
-            }
+            )}
 
             <div className="flex justify-center m-3 ">
-                {success && (
-                    <p className="text-succes">{success}</p>
-                )}
-                {error && (
-                    <p className="text-danger">{error}</p>
-                )}
+                {success && <p className="text-succes">{success}</p>}
+                {error && <p className="text-danger">{error}</p>}
             </div>
 
-
-            {
-                loading &&
+            {loading && (
                 <div className="flex justify-center">
                     <HashLoader color="#240046"></HashLoader>.
                 </div>
-            }
-
+            )}
 
             {eventsList.map((event) => (
                 <MDBContainer>
@@ -157,7 +140,7 @@ export const Events = () => {
                         key={event.id}
                         title={event.title}
                         date={event.date}
-                        poster={require("../../assets/Events/Arcade-2023-Cover.jpg")}
+                        poster={"http://127.0.0.1:8000"+event.event_path}
                         location={event.location}
                         description={event.description}
                         id={event.id}
@@ -167,7 +150,6 @@ export const Events = () => {
             ))}
 
             <div className="mb-10"></div>
-
         </>
     );
 };

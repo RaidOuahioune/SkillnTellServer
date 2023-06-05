@@ -29,6 +29,8 @@ class EventRequest extends FormRequest
             'location' => 'required|string',
             'monitor_id' => 'required|integer',
             'responsible_id' => 'required|integer',
+            'event_image' => 'mimes:jpeg,png,jpg,gif'
         ];
+
     }
 }

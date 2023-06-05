@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
+
 import {
     MDBBtn,
     MDBContainer,
@@ -34,26 +35,35 @@ const EventModal = ({ style }) => {
     let eventDesc = useRef();
     let eventDate = useRef();
     let eventTags = useRef();
-    let eventImage = useRef();
     let eventLocation = useRef();
     let eventImageAlt = useRef();
 
+    const [image, setImage] = useState(null);
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0]; // Get the first selected file
+
+        setImage(file);
+    };
     // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        let payload = {
-            title: eventName.current.value,
-            description: eventDesc.current.value,
-            tages: eventTags.current.value,
-            date: eventDate.current.value,
-            location: eventLocation.current.value,
-            monitor_id: monitorSelected,
-            responsible_id: responsibleSelected,
-        };
+        const formData = new FormData();
+        formData.append("title", eventName.current.value);
+        formData.append("description", eventDesc.current.value);
+        formData.append("tages", eventTags.current.value);
+        formData.append("date", eventDate.current.value);
+        formData.append("location", eventLocation.current.value);
+        formData.append("monitor_id", monitorSelected);
+        formData.append("responsible_id", responsibleSelected);
+        formData.append("event_image", image);
 
+        console.log(formData);
         axiosClient
-            .post("/events/add", payload)
+            .post("/events/add", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
             .then((res) => {
                 setSuccess("Event Added Successfully");
                 console.log(res.data);
@@ -122,11 +132,14 @@ const EventModal = ({ style }) => {
                             wrapperClass="mb-4"
                             required
                         />
-                        <MDBFile
+                        <input
+                            type="file"
+                            accept="image/*"
                             label="Event Poster"
                             id="event-image"
-                            ref={eventImage}
+                            //ref={eventImage}
                             className="mb-4"
+                            onChange={handleFileUpload}
                         />
                         <MDBInput
                             className="mb-1"

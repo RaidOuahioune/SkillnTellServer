@@ -5,7 +5,7 @@
   background-size: 100% 100%;
   background-position: center;
   right: -6px;
-  
+
 }
 */
 .swiper-button-next::after {
@@ -40,7 +40,7 @@ p{
 }
 .image-container {
   width:800px;
-  
+
 }
 
 .swiper-slide{
@@ -49,4 +49,9 @@ p{
 }
 .slider{
   margin: 10px;
+}
+
+.head-name{
+    margin: 2px;
+    font-family: monospace;
 }

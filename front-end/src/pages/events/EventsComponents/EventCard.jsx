@@ -23,13 +23,13 @@ export function EventCard({ title, date, location, poster, description, id, setE
                         user.is_admin &&
                         <MDBBtn className="close-btn" onClick={
                             () => {
-                                console.log("DELETE CLICKED");
+                                //console.log("DELETE CLICKED");
                                 axiosClient.delete(
                                     `events/delete/${id}`
                                 ).then(res => {
                                     console.log("EVENT DELETED SUCCCSSS");
                                     setEventList(
-                                        prev => prev.filter(ev => ev.id != id)
+                                        prev => prev.filter(ev => ev.id !== id)
                                     )
                                 }).catch(err => {
                                     console.log(err);

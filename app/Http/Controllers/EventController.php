@@ -7,22 +7,23 @@ use App\Models\Events;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
     function all()
     {
 
-        return $events = Events::leftjoin('event_images', 'events.id', '=', 'event_images.event_id')
-            ->orderByDesc('date')
-            ->select('events.*', 'event_images.*')
-            ->get()->toArray();
+
+        return Events::all()->sortByDesc('date');
 
     }
     function addEvent(EventRequest $request)
     {
 
         $data = $request->validated();
+        $imagePath = $request->file('event_image')->store('public/Events');
+        $imageUrl = Storage::url($imagePath);
         $event = Events::create([
             "title" => $data["title"],
             "description" => $data["description"],
@@ -30,9 +31,12 @@ class EventController extends Controller
             "date" => $data["date"],
             "location" => $data["location"],
             "monitor_id" => $data["monitor_id"],
-            "responsible_id" => $data["responsible_id"]
+            "responsible_id" => $data["responsible_id"],
+            "event_image" => $data["event_image"],
+            "event_path" => $imageUrl
         ]);
         return response($event, 200);
+
     }
 
     function deleteEvent(Request $request, $id)

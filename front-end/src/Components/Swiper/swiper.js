@@ -10,7 +10,7 @@ import SwiperCore, { EffectFlip, Navigation, Pagination,Autoplay } from "swiper"
 import "./swiper.css"
 export function Teamswiper() {
   SwiperCore.use([EffectFlip, Navigation, Pagination,Autoplay]);
-  
+
   return (
       <div class="slider">
         <div class="left-arrow">
@@ -24,7 +24,7 @@ export function Teamswiper() {
     <Swiper
 
           effect="coverflow"
-          grabCursor="true"   
+          grabCursor="true"
           spaceBetween={10}
           loop={true}
           autoplay={{delay: 5000}}
@@ -35,16 +35,13 @@ export function Teamswiper() {
               <div class="head-block swiper-slide">
                 <div class="image-container">
                   <img
-                    src={require("../../assets/profile.jpeg")}
-                    alt="Name of the head"
+                    src={require("../../assets/raid.webp")}
+                    alt="Ouahioune Raid Abderrezak"
                   />
+                  <p className="head-name">Ouahioune Raid Abderrezak</p>
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Repellendus ea hic reprehenderit eum accusantium quaerat
-                  laudantium sunt dolorem veniam, id tempore. Assumenda magnam
-                  nobis reprehenderit quia veritatis blanditiis itaque
-                  doloribus.
+                 Dev Department head , responsible for management of technical events as well as creating the corresponding websites.A full Stack Developer that contributed to all aspects of the website
                 </p>
               </div>
             </SwiperSlide>
@@ -52,16 +49,13 @@ export function Teamswiper() {
               <div class="head-block swiper-slide">
                 <div class="image-container">
                   <img
-                    src={require("../../assets/profile2.png")}
-                    alt="Name of the head"
+                    src={require("../../assets/yazid.webp")}
+                    alt="Slimani Yazid"
                   />
+                  <p className="head-name">Slimani Yazid</p>
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Repellendus ea hic reprehenderit eum accusantium quaerat
-                  laudantium sunt dolorem veniam, id tempore. Assumenda magnam
-                  nobis reprehenderit quia veritatis blanditiis itaque
-                  doloribus.
+                 The Club's president and one of the club creators, responsible for managing the club from all aspects.Contributed to the Server Side of this Website
                 </p>
               </div>
             </SwiperSlide>
@@ -70,16 +64,13 @@ export function Teamswiper() {
               <div class="head-block swiper-slide">
                 <div class="image-container">
                   <img
-                    src={require("../../assets/profile3.jpg")}
-                    alt="Name of the head"
+                    src={require("../../assets/ilyes.webp")}
+                    alt="Ilyes Ismail Benamuer"
                   />
+                  <p className="head-name">Ilyes Ismail Benamuer</p>
                 </div>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Repellendus ea hic reprehenderit eum accusantium quaerat
-                  laudantium sunt dolorem veniam, id tempore. Assumenda magnam
-                  nobis reprehenderit quia veritatis blanditiis itaque
-                  doloribus.
+                The Head of the Design Department and one of the main contributors of this WebSite, Heavily focused on constructing desinging the  and implementing the client side of the project
                 </p>
               </div>
             </SwiperSlide>
@@ -87,6 +78,6 @@ export function Teamswiper() {
           </div>
         </div>
       </div>
-   
+
   );
 }

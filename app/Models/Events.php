@@ -21,6 +21,8 @@ class Events extends Model
         'location',
         'monitor_id',
         'responsible_id',
+        'event_image',
+        'event_path'
     ];
 
 

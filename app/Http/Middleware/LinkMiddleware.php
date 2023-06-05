@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\HttpFoundation\Response;
 
-class linkMiddleware
+class LinkMiddleware
 {
     /**
      * Handle an incoming request.

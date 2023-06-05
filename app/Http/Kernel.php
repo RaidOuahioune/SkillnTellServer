@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
             //TokenMiddleware::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            LinkMiddleware::class
+            //LinkMiddleware::class
 
         ],
     ];
